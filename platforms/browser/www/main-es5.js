@@ -6796,10 +6796,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           color: '#4e6d70'
         }]
       }],
-      // baseUrl: 'http://18.156.154.255/',
-      // apiUrl: 'http://18.156.154.255/api/',
-      baseUrl: 'http://localhost:4000/',
-      apiUrl: 'http://localhost:4000/api/'
+      baseUrl: 'http://18.156.154.255/',
+      apiUrl: 'http://18.156.154.255/api/'
     };
     /***/
   },

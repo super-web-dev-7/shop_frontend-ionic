@@ -260,7 +260,7 @@ export const environment = {
       ]
     }
   ],
-  baseUrl: 'http://3.127.160.190/',
-  apiUrl: 'http://3.127.160.190/api/',
+  baseUrl: 'http://18.156.154.255/',
+  apiUrl: 'http://18.156.154.255/api/',
   // //
 }
