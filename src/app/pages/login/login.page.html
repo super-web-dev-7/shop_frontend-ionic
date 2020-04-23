@@ -1,0 +1,72 @@
+<ion-content class="ion-padding animated fadeIn login auth-page">
+    <div class="theme-bg"></div>
+    <div class="auth-content">
+
+        <!-- Logo -->
+        <div class="ion-padding-horizontal ion-text-center animated fadeInDown">
+            <div class="logo"></div>
+            <h4 class="ion-no-margin">
+                <ion-text color="light" class="fw700">
+                    {{ 'app.namea' | translate }}<ion-text color="secondary">{{ 'app.nameb' | translate }}</ion-text>
+                    {{ 'app.version' | translate }}
+                </ion-text>
+            </h4>
+        </div>
+
+        <br>
+        <br>
+
+        <!-- Login form -->
+        <form [formGroup]="onLoginForm" class="list-form">
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label position="floating">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    {{ 'app.label.email' | translate }}
+                </ion-label>
+                <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <p class="text08" *ngIf="onLoginForm.get('email').touched && onLoginForm.get('email').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label position="floating">
+                    <ion-icon name="lock-closed" item-start></ion-icon>
+                    {{ 'app.label.password' | translate }}
+                </ion-label>
+                <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <p color="warning" class="text08" *ngIf="onLoginForm.get('password').touched && onLoginForm.get('password').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+        </form>
+
+        <p tappable (click)="forgotPass()" class="ion-text-right paz">
+            <ion-text color="light">
+                <strong>{{ 'app.pages.login.label.forgot' | translate }}</strong>
+            </ion-text>
+        </p>
+
+        <div>
+            <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="goToHome()" [disabled]="!onLoginForm.valid" tappable>
+                <ion-icon name="log-in"></ion-icon>
+                {{ 'app.button.signin' | translate }}
+            </ion-button>
+
+        </div>
+
+        <!-- Other links -->
+        <div class="ion-text-center ion-margin-top">
+      <span (click)="goToRegister()" class="paz" tappable>
+        <ion-text color="light">
+          New here? <strong>{{ 'app.button.signup' | translate }}</strong>
+        </ion-text>
+      </span>
+        </div>
+
+    </div>
+</ion-content>

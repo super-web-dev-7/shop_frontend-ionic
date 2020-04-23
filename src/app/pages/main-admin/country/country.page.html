@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="secondary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                {{ 'app.pages.country.title.header' | translate }}
+            </ion-text>
+        </ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="end">
+            <ion-button size="default" shape="round" (click)="addCountry()">
+                <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding" fixed>
+        <div class="ion-no-margin" [@staggerIn]="countries">
+        
+            <ion-item lines="none" class="bg-white" tappable
+                      *ngFor="let country of countries">
+                <ion-label (click)="editCountry(country)">
+                    <h2>
+                        <ion-text color="dark"><strong>{{ country.name }}</strong></ion-text>
+                    </h2>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700" *ngFor="let language of country.languages">{{language.language}} </ion-text>
+                    </p>
+                    
+                </ion-label>
+                <ion-button slot="end" (click)="deleteCountry(country._id)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            
+        </div>
+    
+    </ion-grid>
+    
+</ion-content>
+

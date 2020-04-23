@@ -1,0 +1,118 @@
+<ion-content class="ion-padding animated fadeIn login auth-page">
+
+    <div class="auth-content">
+        <!-- Logo -->
+        <div class="ion-padding-horizontal ion-text-center animated fadeInDown">
+            <div class="logo"></div>
+            <h3 class="ion-no-margin">
+                <ion-text color="light" class="fw700">
+                    <ion-text color="secondary">{{ 'app.pages.register.title.header' | translate }}</ion-text>
+                </ion-text>
+            </h3>
+        </div>
+
+        <!-- Register form -->
+        <form [formGroup]="onRegisterForm" class="list-form">
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label position="floating">
+                    <ion-icon name="person" item-start></ion-icon>
+                    {{ 'app.label.firstname' | translate }}
+                </ion-label>
+                <ion-input color="secondary" type="text" formControlName="firstName"></ion-input>
+            </ion-item>
+            <p class="text08"
+               *ngIf="onRegisterForm.get('firstName').touched && onRegisterForm.get('firstName').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label position="floating">
+                    <ion-icon name="person" item-start></ion-icon>
+                    {{ 'app.label.lastname' | translate }}
+                </ion-label>
+                <ion-input color="secondary" type="text" formControlName="lastName"></ion-input>
+            </ion-item>
+            <p class="text08"
+               *ngIf="onRegisterForm.get('lastName').touched && onRegisterForm.get('lastName').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label position="floating">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    {{ 'app.label.email' | translate }}
+                </ion-label>
+                <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <p class="text08"
+               *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label position="floating">
+                    <ion-icon name="lock-closed" item-start></ion-icon>
+                    {{ 'app.label.password' | translate }}
+                </ion-label>
+                <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <p color="warning" class="text08"
+               *ngIf="onRegisterForm.get('password').touched && onRegisterForm.get('password').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label>
+                    <ion-icon name="settings" item-start></ion-icon>
+                    {{ 'app.label.country' | translate }}
+                </ion-label>
+                <ion-select okText="OK" cancelText="Cancel" (ionChange)="selectCountry($event)" formControlName="country">
+                    <ion-select-option [value]="country" *ngFor="let country of countries">{{country.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <p color="warning" class="text08"
+               *ngIf="onRegisterForm.get('country').touched && onRegisterForm.get('country').hasError('required')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.field' | translate }}
+                </ion-text>
+            </p>
+
+            <ion-item class="ion-no-padding animated fadeInUp">
+                <ion-label>
+                    <ion-icon name="language" item-start></ion-icon>
+                    {{ 'app.label.language' | translate }}
+                </ion-label>
+                <ion-select formControlName="language" okText="OK" cancelText="Cancel">
+                    <ion-select-option [value]="language" *ngFor="let language of languages" >{{language.language}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </form>
+
+        <div class="ion-margin-top">
+            <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="signUp()"
+                        [disabled]="!onRegisterForm.valid"
+                        tappable>
+                <ion-icon name="log-in"></ion-icon>
+                {{ 'app.button.signup' | translate }}
+            </ion-button>
+        </div>
+
+        <!-- Other links -->
+        <div class="ion-text-center ion-margin-top">
+      <span (click)="goToLogin()" tappable>
+        <ion-text color="light">
+          <strong>{{ 'app.pages.register.label.ihave' | translate }}</strong>
+        </ion-text>
+      </span>
+        </div>
+
+    </div>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="secondary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                {{ 'app.pages.language.title.header' | translate }}
+            </ion-text>
+        </ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="end">
+            <ion-button size="default" shape="round" (click)="addLanguage()">
+                <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding" fixed>
+        <div class="ion-no-margin" [@staggerIn]="languages">
+        
+            <ion-item lines="none" class="bg-white" tappable
+                      *ngFor="let language of languages">
+                <ion-label (click)="editLanguage(language)">
+                    <h2>
+                        <ion-text color="dark"><strong>{{ language.language }}</strong></ion-text>
+                    </h2>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700">{{language.isRTL === true ? 'RTL' : 'LTR'}}</ion-text>
+                    </p>
+                    
+                </ion-label>
+                <ion-button slot="end" (click)="deleteLanguage(language._id)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            
+        </div>
+    
+    </ion-grid>
+    
+</ion-content>
+

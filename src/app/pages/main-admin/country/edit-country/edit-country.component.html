@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="close" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{'app.pages.country.title.edit' | translate}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="onEditForm" class="list-form">
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="person" item-start></ion-icon>
+                {{'app.label.country' | translate}}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onEditForm.get('name').touched && onEditForm.get('name').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+    
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label>
+                <ion-icon name="trail-sign" item-start></ion-icon>
+                {{ 'app.label.language' | translate }}
+            </ion-label>
+            <ion-select okText="OK" cancelText="Cancel" formControlName="languages" multiple>
+                <ion-select-option [value]="language._id"
+                                   *ngFor="let language of languages">{{language.language}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <p color="warning" class="text08"
+           *ngIf="onEditForm.get('languages').touched && onEditForm.get('languages').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-button expand="full" color="primary" (click)="editLanguage()" [disabled]="!onEditForm.valid">{{'app.button.editCountry' | translate}}
+        </ion-button>
+    </form>
+
+
+</ion-content>

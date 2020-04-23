@@ -1,0 +1,104 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="close" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{'app.common.edit' | translate}} {{'app.common.user' | translate}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="onEditUserForm" class="list-form">
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="person" item-start></ion-icon>
+                {{ 'app.label.firstname' | translate }}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="firstName"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onEditUserForm.get('firstName').touched && onEditUserForm.get('firstName').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="person" item-start></ion-icon>
+                {{ 'app.label.lastname' | translate }}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="lastName"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onEditUserForm.get('lastName').touched && onEditUserForm.get('lastName').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="mail" item-start></ion-icon>
+                {{ 'app.label.email' | translate }}
+            </ion-label>
+            <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onEditUserForm.get('email').touched && onEditUserForm.get('email').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="lock-closed" item-start></ion-icon>
+                {{ 'app.label.password' | translate }}
+            </ion-label>
+            <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <p color="warning" class="text08"
+           *ngIf="onEditUserForm.get('password').touched && onEditUserForm.get('password').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label>
+                <ion-icon name="settings" item-start></ion-icon>
+                {{ 'app.label.country' | translate }}
+            </ion-label>
+            <ion-select okText="OK" cancelText="Cancel" [selectedText]="this.f.country.value.name" (ionChange)="selectCountry($event)" formControlName="country">
+                <ion-select-option [value]="country"
+                                   *ngFor="let country of countries">{{country.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <p color="warning" class="text08"
+           *ngIf="onEditUserForm.get('country').touched && onEditUserForm.get('country').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label>
+                <ion-icon name="language" item-start></ion-icon>
+                {{ 'app.label.language' | translate }}
+            </ion-label>
+            <ion-select formControlName="language" okText="OK" [selectedText]="this.f.language.value.language" cancelText="Cancel">
+                <ion-select-option [value]="language"
+                                   *ngFor="let language of languages">{{language.language}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-button expand="full" color="primary" (click)="editUser()" [disabled]="!onEditUserForm.valid">{{'app.common.edit' | translate}} {{'app.common.user' | translate}}
+        </ion-button>
+    </form>
+
+
+</ion-content>

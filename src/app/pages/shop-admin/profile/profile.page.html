@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="secondary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                {{ 'app.pages.profile.title.header' | translate }}
+            </ion-text>
+        </ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="end">
+            <ion-button size="default" shape="round" (click)="addProfile()">
+                <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding" fixed>
+        <div class="ion-no-margin" [@staggerIn]="shops">
+        
+            <ion-item lines="none" class="bg-white" tappable
+                      *ngFor="let profile of profiles">
+                <ion-label (click)="editProfile(profile)">
+                    <h2>
+                        <ion-text color="dark"><strong>{{ profile.name }}</strong></ion-text>
+                    </h2>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700" *ngIf="profile.shopID">Shop: {{profile.shopID.companyName}}</ion-text>
+                    </p>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700">{{profile.isMainAdmin ? 'Main Admin' : ''}}</ion-text>
+                    </p>
+                    
+                </ion-label>
+                <ion-button slot="end" (click)="deleteProfile(profile._id)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            
+        </div>
+    
+    </ion-grid>
+    
+</ion-content>
+

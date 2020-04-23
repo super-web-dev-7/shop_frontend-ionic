@@ -1,0 +1,9 @@
+{
+    "name": "foodIonic2",
+    "integrations": {
+        "cordova": {},
+        "capacitor": {}
+    },
+    "type": "angular",
+    "id": "3fff720e"
+}

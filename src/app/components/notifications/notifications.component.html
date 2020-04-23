@@ -1,0 +1,19 @@
+<ion-list class="ion-no-padding ion-no-margin">
+    <ion-list-header color="dark">
+      <ion-label class="fw700">Notifications</ion-label>
+    </ion-list-header>
+
+    <ion-item tappable *ngFor="let message of messages" routerLink="/message/{{message.id}}" (click)="close()">
+      <ion-label>
+        <h2 [ngClass]="{'fw700 text-white': !message.read}">
+          <ion-icon name="mail" slot="start" color="dark" *ngIf="!message.read"></ion-icon>
+          <ion-icon name="mail-open" slot="start" color="primary" *ngIf="message.read"></ion-icon>
+          <ion-text color="primary">{{message.title}}</ion-text>
+        </h2>
+        <p [ngClass]="{'text-light': !message.read}">
+          <ion-text color="dark">{{message.senderName}} ∙ {{message.date | date: 'MM/dd/yyyy'}}</ion-text>
+        </p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>

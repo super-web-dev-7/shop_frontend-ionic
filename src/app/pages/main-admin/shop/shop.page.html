@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="secondary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                {{ 'app.pages.shop.title.header' | translate }}
+            </ion-text>
+        </ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="end">
+            <ion-button size="default" shape="round" (click)="addLanguage()">
+                <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding" fixed>
+        <div class="ion-no-margin" [@staggerIn]="shops">
+        
+            <ion-item lines="none" class="bg-white" tappable
+                      *ngFor="let shop of shops">
+                <ion-label (click)="editLanguage(shop)">
+                    <h2>
+                        <ion-text color="dark"><strong>{{ shop.companyName }}</strong></ion-text>
+                    </h2>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700">{{shop.email}}</ion-text>
+                    </p>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700">{{shop.firstName}} {{shop.lastName}}</ion-text>
+                    </p>
+                    
+                </ion-label>
+                <ion-icon name="radio-button-on" [color]="shop.status === true ? 'success' : 'medium'"></ion-icon>
+                <ion-button slot="end" (click)="deleteShop(shop._id)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            
+        </div>
+    
+    </ion-grid>
+    
+</ion-content>
+

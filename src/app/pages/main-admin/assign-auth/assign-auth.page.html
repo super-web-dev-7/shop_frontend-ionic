@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="secondary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                {{ 'app.pages.assign.title.header' | translate }}
+            </ion-text>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding" fixed>
+        <div class="ion-no-margin">
+            <ion-item class="ion-no-padding animated fadeInUp bg-white">
+                <ion-label>
+                    <ion-icon name="person" item-start></ion-icon>
+                    {{'app.pages.users.title.header' | translate}}
+                </ion-label>
+                <ion-select okText="OK" cancelText="Cancel" multiple [(ngModel)]="selectedUserAccess">
+                    <ion-select-option [value]="item.value" *ngFor="let item of items">{{item.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item class="ion-no-padding animated fadeInUp bg-white">
+                <ion-label>
+                    <ion-icon name="people" item-start></ion-icon>
+                    {{'app.pages.profile.title.header' | translate}}
+                </ion-label>
+                <ion-select okText="OK" cancelText="Cancel" multiple [(ngModel)]="selectedProfileAccess">
+                    <ion-select-option [value]="item.value" *ngFor="let item of items">{{item.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item class="ion-no-padding animated fadeInUp bg-white">
+                <ion-label>
+                    <ion-icon name="gift" item-start></ion-icon>
+                    {{'app.pages.shop.title.header' | translate}}
+                </ion-label>
+                <ion-select okText="OK" cancelText="Cancel" multiple [(ngModel)]="selectedShopAccess">
+                    <ion-select-option [value]="item.value" *ngFor="let item of items">{{item.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item class="ion-no-padding animated fadeInUp bg-white">
+                <ion-label>
+                    <ion-icon name="globe" item-start></ion-icon>
+                    {{'app.pages.country.title.header' | translate}}
+                </ion-label>
+                <ion-select okText="OK" cancelText="Cancel" multiple [(ngModel)]="selectedCountryAccess">
+                    <ion-select-option [value]="item.value" *ngFor="let item of items">{{item.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item class="ion-no-padding animated fadeInUp bg-white">
+                <ion-label>
+                    <ion-icon name="language" item-start></ion-icon>
+                    {{'app.pages.language.title.header' | translate}}
+                </ion-label>
+                <ion-select okText="OK" cancelText="Cancel" multiple [(ngModel)]="selectedLanguageAccess">
+                    <ion-select-option [value]="item.value" *ngFor="let item of items">{{item.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-button expand="full" color="primary" (click)="select()" >{{'app.button.saveAssign' | translate}}</ion-button>
+        </div>
+    
+    </ion-grid>
+</ion-content>
+

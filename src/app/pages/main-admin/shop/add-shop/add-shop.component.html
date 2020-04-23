@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="close" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{'app.pages.shop.title.add' | translate}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="onRegisterForm" class="list-form">
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="fast-food" item-start></ion-icon>
+                {{'app.label.companyName' | translate}}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="companyName"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onRegisterForm.get('companyName').touched && onRegisterForm.get('companyName').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+    
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="person" item-start></ion-icon>
+                {{'app.label.firstname' | translate}}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="firstName"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onRegisterForm.get('firstName').touched && onRegisterForm.get('firstName').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+    
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="person" item-start></ion-icon>
+                {{'app.label.lastname' | translate}}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="lastName"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onRegisterForm.get('lastName').touched && onRegisterForm.get('lastName').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+    
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="mail" item-start></ion-icon>
+                {{'app.label.email' | translate}}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="email"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label>
+                <ion-icon name="magnet" item-start></ion-icon>
+                {{'app.label.status' | translate}}
+            </ion-label>
+            <ion-select formControlName="status" okText="OK" cancelText="Cancel">
+                <ion-select-option [value]="item" *ngFor="let item of status" >{{item.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onRegisterForm.get('status').touched && onRegisterForm.get('status').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        <ion-button expand="full" color="primary" (click)="addShop()" [disabled]="!onRegisterForm.valid">{{'app.button.addShop' | translate}}</ion-button>
+    </form>
+    
+    
+</ion-content>

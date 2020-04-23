@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="secondary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                {{ 'app.common.users' | translate }}
+            </ion-text>
+        </ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="end">
+            <ion-button size="default" shape="round" (click)="addUser()">
+                <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding" fixed>
+        <div class="ion-no-margin" [@staggerIn]="users">
+        
+            <ion-item lines="none" class="bg-white" tappable
+                      *ngFor="let user of users">
+                <ion-label (click)="editUser(user)">
+                    <h2>
+                        <ion-text color="dark"><strong>{{ user.firstName }} {{user.lastName}}</strong></ion-text>
+                    </h2>
+                    <p class="text-12x">
+                        <ion-text color="secondary" class="fw700">{{user.email}}</ion-text>
+                    </p>
+                    <p class="text-10x">
+                        <ion-text color="primary">{{user.country.name}}({{user.language.language}})</ion-text>
+                    </p>
+                    <p class="text-10x">
+                        <ion-text color="primary">{{user.role == 0 ? "User" : user.role == 1 ? "Shop Admin" : "Main Admin"}}</ion-text>
+                    </p>
+                </ion-label>
+                <ion-button slot="end" (click)="deleteUser(user._id)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            
+        </div>
+    
+    </ion-grid>
+</ion-content>
+

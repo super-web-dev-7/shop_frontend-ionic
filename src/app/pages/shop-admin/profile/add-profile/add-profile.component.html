@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="close" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ 'app.pages.profile.title.add' | translate }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="onRegisterForm" class="list-form">
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label position="floating">
+                <ion-icon name="person" item-start></ion-icon>
+                {{ 'app.label.profileName' | translate }}
+            </ion-label>
+            <ion-input color="secondary" type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <p class="text08"
+           *ngIf="onRegisterForm.get('name').touched && onRegisterForm.get('name').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+        
+        <ion-button expand="full" color="primary" (click)="addProfile()" [disabled]="!onRegisterForm.valid">{{ 'app.button.addProfile' | translate }}</ion-button>
+    </form>
+    
+    
+</ion-content>

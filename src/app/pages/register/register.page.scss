@@ -1,0 +1,14 @@
+:host {
+    ion-content {
+        --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary))
+    }
+
+    .item-native {
+        padding: 0 !important;
+    }
+
+    ion-select-option {
+        --font-color: #fff;
+    }
+
+}
