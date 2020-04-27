@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, ModalController} from '@ionic/angular';
+import {LoadingController, ModalController, ToastController} from '@ionic/angular';
 import {AuthService, HttpService} from '../../../../providers';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
@@ -36,7 +36,8 @@ export class AddUserComponent implements OnInit {
         private httpRequest: HttpService,
         private formBuilder: FormBuilder,
         public loadingCtrl: LoadingController,
-        private auth: AuthService
+        private auth: AuthService,
+        public toastController: ToastController
     ) {
     }
 
@@ -84,7 +85,6 @@ export class AddUserComponent implements OnInit {
     }
 
     selectRole(item) {
-        console.log(item)
         if (item.detail.value == 1) {
             this.onRegisterForm.controls.shop.enable();
         } else {
@@ -116,19 +116,25 @@ export class AddUserComponent implements OnInit {
                 shop: this.f.role.value === 1? this.f.shop.value._id : null
             };
             console.log(data)
-            this.httpRequest.addUser(data).subscribe(res => {
-                console.log(res)
-                this.modalCtrl.dismiss(data);
+            this.httpRequest.addUser(data).subscribe((res: any) => {
+                if (res.unique === false) {
+                    loader.onWillDismiss().then(() => {
+                        this.presentToast('User already exists')
+                    })
+                } else {
+                    loader.onWillDismiss().then(() => {
+                        this.modalCtrl.dismiss(res);
+                    });
+                }
             });
-            // this.auth.register(data).pipe(first()).subscribe(
-            //     data => {
-            //         data.country = this.f.country.value;
-            //         data.language = this.f.language.value;
-            //         this.modalCtrl.dismiss(data);
-            //     }, error => {
-            //         console.log(error.error)
-            //     }
-            // );
         });
+    }
+
+    async presentToast(message) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: 2000
+        });
+        toast.present();
     }
 }

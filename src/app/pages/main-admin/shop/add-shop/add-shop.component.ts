@@ -11,17 +11,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class AddShopComponent implements OnInit {
 
     public onRegisterForm: FormGroup;
-    private status = [
-        {
-            name: 'Active',
-            value: true
-        },
-        {
-            name: 'Inactive',
-            value: false
-        }
-    ];
-
 
     constructor(
         private modalCtrl: ModalController,
@@ -44,9 +33,6 @@ export class AddShopComponent implements OnInit {
                 Validators.required
             ])],
             'email': [null, Validators.compose([
-                Validators.required
-            ])],
-            'status': [null, Validators.compose([
                 Validators.required
             ])]
         });
@@ -72,7 +58,7 @@ export class AddShopComponent implements OnInit {
             firstName: this.f.firstName.value,
             lastName: this.f.lastName.value,
             email: this.f.email.value,
-            status: this.f.status.value.value,
+            status: true,
             createdBy: this.auth.currentUserValue.email
         };
 

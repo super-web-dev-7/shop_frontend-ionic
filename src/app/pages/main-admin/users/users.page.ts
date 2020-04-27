@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {
-    AlertController,
     MenuController,
     LoadingController,
     ModalController
@@ -46,8 +45,6 @@ export class UsersPage {
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        public alertController: AlertController,
-        private translate: TranslateService
     ) {
     }
 
@@ -88,35 +85,5 @@ export class UsersPage {
             }
         });
         return await modal.present();
-    }
-
-    async deleteUser(id) {
-
-        const option = {
-            header: this.translate.instant('app.pages.users.title.delete'),
-            message: this.translate.instant('app.alert.user.content'),
-            buttons: [
-                {
-                    text: this.translate.instant('app.button.cancel'),
-                    role: 'cancel',
-                    cssClass: 'primary',
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: this.translate.instant('app.button.delete'),
-                    handler: () => {
-                        this.http.deleteUser(id).subscribe(result => {
-                            const index = this.users.findIndex(user => {
-                                return id === user._id;
-                            });
-                            this.users.splice(index, 1);
-                        })
-                    }
-                }
-            ]
-        };
-
-        const alert = await this.alertController.create(option);
-        await alert.present();
     }
 }

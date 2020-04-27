@@ -15,6 +15,7 @@ export class EditUserComponent implements OnInit {
     public countries: any;
     public languages = [];
     private user: any;
+    public profiles: any;
 
     constructor(
         private modalCtrl: ModalController,
@@ -37,13 +38,14 @@ export class EditUserComponent implements OnInit {
             'email': [this.user.email, Validators.compose([
                 Validators.required
             ])],
-            'password': [null, Validators.compose([
-                Validators.required
-            ])],
             'country': [this.user.country, Validators.compose([
                 Validators.required
             ])],
             'language': [{value: this.user.language, disabled: false}, Validators.compose([
+                Validators.required
+            ])],
+            'profile': [this.user.profile],
+            'status': [this.user.status, Validators.compose([
                 Validators.required
             ])]
         });
@@ -54,6 +56,10 @@ export class EditUserComponent implements OnInit {
             const index = this.countries.findIndex(country => country._id === this.user.country._id);
             this.languages = this.countries[index].languages
         });
+
+        this.httpRequest.getProfilesForShopAdmin(this.auth.currentUserValue.shop).subscribe(profiles => {
+            this.profiles = profiles;
+        })
     }
 
     get f() {
@@ -82,15 +88,14 @@ export class EditUserComponent implements OnInit {
             firstName: this.f.firstName.value,
             lastName: this.f.lastName.value,
             email: this.f.email.value,
-            password: this.f.password.value,
             country: this.f.country.value._id,
             language: this.f.language.value._id,
+            profile: this.f.profile.value._id,
+            status: this.f.status.value
         };
 
         this.httpRequest.editUser(data).subscribe(result => {
             loader.onWillDismiss().then(() => {
-                data.country = this.f.country.value;
-                data.language = this.f.language.value;
                 this.modalCtrl.dismiss(data);
             });
         });

@@ -117,4 +117,8 @@ export class HttpService {
     getProfilesForShopAdmin(shopId) {
         return this.http.get(`${UrlJSON.profileUrl}/getProfilesForShopAdmin/${shopId}`);
     }
+
+    assignToProfile(data) {
+        return this.http.put(`${UrlJSON.profileUrl}/assignToProfile/${data._id}`, data);
+    }
 }

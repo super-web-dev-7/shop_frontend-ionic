@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
@@ -60,6 +60,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         IonicModule.forRoot(environment.config),
         AppRoutingModule,
         HttpClientModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: 'My-Xsrf-Cookie',
+            headerName: 'My-Xsrf-Header'
+        }),
         ImagePageModule,
         CartPageModule,
         LocationPageModule,

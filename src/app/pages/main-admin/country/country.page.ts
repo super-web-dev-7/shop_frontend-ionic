@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {
-    AlertController,
     MenuController,
     LoadingController,
     ModalController
@@ -46,7 +45,6 @@ export class CountryPage {
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        public alertController: AlertController,
         private translate: TranslateService
     ) {
 
@@ -89,33 +87,5 @@ export class CountryPage {
             }
         });
         return await modal.present();
-    }
-
-    async deleteCountry(id) {
-
-        const alert = await this.alertController.create({
-            header: this.translate.instant('app.pages.country.title.delete'),
-            message: this.translate.instant('app.alert.country.content'),
-            buttons: [
-                {
-                    text: this.translate.instant('app.button.cancel'),
-                    role: 'cancel',
-                    cssClass: 'primary',
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: this.translate.instant('app.button.delete'),
-                    handler: () => {
-                        this.http.deleteCountry(id).subscribe(result => {
-                            const index = this.countries.findIndex(user => {
-                                return id === user._id;
-                            });
-                            this.countries.splice(index, 1);
-                        })
-                    }
-                }
-            ]
-        });
-        await alert.present();
     }
 }

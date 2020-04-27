@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
 import {
-    NavController,
-    AlertController,
     MenuController,
     LoadingController,
     ModalController
@@ -45,12 +43,10 @@ export class ProfilePage {
     profiles: any;
 
     constructor(
-        public navCtrl: NavController,
         public menuCtrl: MenuController,
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        public alertController: AlertController,
         private translate: TranslateService,
         private auth: AuthService
     ) {
@@ -93,30 +89,5 @@ export class ProfilePage {
             }
         });
         return await modal.present();
-    }
-
-    async deleteProfile(id) {
-
-        const alert = await this.alertController.create({
-            header: this.translate.instant('app.pages.profile.title.delete'),
-            message: this.translate.instant('app.alert.profile.content'),
-            buttons: [
-                {
-                    text: this.translate.instant('app.button.cancel'),
-                    role: 'cancel',
-                    cssClass: 'primary',
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: this.translate.instant('app.button.delete'),
-                    handler: () => {
-                        this.http.deleteProfile(id).subscribe(result => {
-                            this.findAll();
-                        })
-                    }
-                }
-            ]
-        });
-        await alert.present();
     }
 }

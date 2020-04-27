@@ -61,7 +61,7 @@
                 {{'app.forms.role' | translate}}
             </ion-label>
             <ion-select okText="OK" cancelText="Cancel" [selectedText]="this.f.role.value.name" formControlName="role" (ionChange)="selectRole($event)">
-                <ion-select-option [value]="role.value"
+                <ion-select-option [value]="role"
                                    *ngFor="let role of roles">{{role.name}}</ion-select-option>
             </ion-select>
         </ion-item>
@@ -118,6 +118,23 @@
         </ion-item>
         <p color="warning" class="text08"
            *ngIf="onEditUserForm.get('shop').touched && onEditUserForm.get('shop').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+    
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label>
+                <ion-icon name="bulb" item-start></ion-icon>
+                {{ 'app.label.status' | translate }}
+            </ion-label>
+            <ion-select formControlName="status" okText="OK" [selectedText]="user.status === true ? 'Active' : 'Inactive'" cancelText="Cancel">
+                <ion-select-option [value]="true">Active</ion-select-option>
+                <ion-select-option [value]="false">Inactive</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <p color="warning" class="text08"
+           *ngIf="onEditUserForm.get('status').touched && onEditUserForm.get('status').hasError('required')">
             <ion-text color="warning">
                 {{ 'app.label.errors.field' | translate }}
             </ion-text>

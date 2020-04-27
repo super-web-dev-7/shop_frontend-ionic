@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {
-    AlertController,
     MenuController,
     LoadingController,
     ModalController
@@ -47,7 +46,6 @@ export class ShopPage {
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        public alertController: AlertController,
         private translate: TranslateService
     ) {
     }
@@ -89,33 +87,5 @@ export class ShopPage {
             }
         });
         return await modal.present();
-    }
-
-    async deleteShop(id) {
-
-        const alert = await this.alertController.create({
-            header: this.translate.instant('app.pages.shop.title.delete'),
-            message: this.translate.instant('app.alert.shop.content'),
-            buttons: [
-                {
-                    text: this.translate.instant('app.button.cancel'),
-                    role: 'cancel',
-                    cssClass: 'primary',
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: this.translate.instant('app.button.delete'),
-                    handler: () => {
-                        this.http.deleteShop(id).subscribe(result => {
-                            const index = this.shops.findIndex(shop => {
-                                return id === shop._id;
-                            });
-                            this.shops.splice(index, 1);
-                        })
-                    }
-                }
-            ]
-        });
-        await alert.present();
     }
 }

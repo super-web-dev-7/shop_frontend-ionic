@@ -42,6 +42,7 @@ export class EditUserComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.navParams.data.user;
+        console.log(this.user)
         this.onEditUserForm = this.formBuilder.group({
             'firstName': [this.user.firstName, Validators.compose([
                 Validators.required
@@ -62,6 +63,9 @@ export class EditUserComponent implements OnInit {
                 Validators.required
             ])],
             'shop': [{value: this.user.role === 1 ? this.user.shop : null, disabled: false}, Validators.compose([
+                Validators.required
+            ])],
+            'status': [this.user.status, Validators.compose([
                 Validators.required
             ])]
         });
@@ -94,7 +98,7 @@ export class EditUserComponent implements OnInit {
     }
 
     selectRole(item){
-        if (item.detail.value !== 1) {
+        if (item.detail.value.value !== 1) {
             this.f.shop.disable();
         } else {
             this.f.shop.enable();
@@ -120,7 +124,8 @@ export class EditUserComponent implements OnInit {
             country: this.f.country.value._id,
             language: this.f.language.value._id,
             role: this.f.role.value.value,
-            shop: this.f.role.value.value === 1 ? this.f.shop.value._id : null
+            shop: this.f.role.value.value === 1 ? this.f.shop.value._id : null,
+            status: this.f.status.value
         };
 
         console.log(data)

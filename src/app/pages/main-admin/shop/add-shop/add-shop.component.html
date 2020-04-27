@@ -69,21 +69,6 @@
             </ion-text>
         </p>
         
-        <ion-item class="ion-no-padding animated fadeInUp">
-            <ion-label>
-                <ion-icon name="magnet" item-start></ion-icon>
-                {{'app.label.status' | translate}}
-            </ion-label>
-            <ion-select formControlName="status" okText="OK" cancelText="Cancel">
-                <ion-select-option [value]="item" *ngFor="let item of status" >{{item.name}}</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <p class="text08"
-           *ngIf="onRegisterForm.get('status').touched && onRegisterForm.get('status').hasError('required')">
-            <ion-text color="warning">
-                {{ 'app.label.errors.field' | translate }}
-            </ion-text>
-        </p>
         <ion-button expand="full" color="primary" (click)="addShop()" [disabled]="!onRegisterForm.valid">{{'app.button.addShop' | translate}}</ion-button>
     </form>
     
