@@ -5,7 +5,7 @@ import {
     ModalController
 } from '@ionic/angular';
 
-import {HttpService} from '../../../providers';
+import {AuthService, HttpService} from '../../../providers';
 
 import {
     trigger,
@@ -36,19 +36,36 @@ import {AssignToProfileComponent} from './assign-to-profile/assign-to-profile.co
 })
 
 export class AssignAuthPage {
-
-
-
-
-
     profiles: any;
+    searchValue: String;
+    filteredProfiles: any;
+
+    private items = [
+        {
+            name: 'View',
+            value: 1
+        },
+        {
+            name: 'Insert',
+            value: 2
+        },
+        {
+            name: 'Edit',
+            value: 3
+        },
+        {
+            name: 'Delete',
+            value: 4
+        }
+    ];
 
     constructor(
         public menuCtrl: MenuController,
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private auth: AuthService
     ) {
     }
 
@@ -67,9 +84,16 @@ export class AssignAuthPage {
         //     this.setting = res[0];
         // });
 
-        this.http.getAllProfiles().subscribe(profiles => {
+        this.http.getProfilesForShopAdmin(this.auth.currentUserValue.shop).subscribe(profiles => {
             this.profiles = profiles;
+            this.filteredProfiles = profiles;
         });
+    }
+
+    searchProfile() {
+        this.filteredProfiles = this.profiles.filter(profile => {
+            return profile.name.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
+        })
     }
 
     async assign(profile) {

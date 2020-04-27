@@ -37,11 +37,9 @@ import {AssignToProfileComponent} from './assign-to-profile/assign-to-profile.co
 
 export class AssignAuthPage {
 
-
-
-
-
     profiles: any;
+    searchValue: String;
+    filteredProfiles: any;
 
     constructor(
         public menuCtrl: MenuController,
@@ -69,7 +67,14 @@ export class AssignAuthPage {
 
         this.http.getAllProfiles().subscribe(profiles => {
             this.profiles = profiles;
+            this.filteredProfiles = profiles;
         });
+    }
+
+    searchProfile() {
+        this.filteredProfiles = this.profiles.filter(profile => {
+            return profile.name.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
+        })
     }
 
     async assign(profile) {

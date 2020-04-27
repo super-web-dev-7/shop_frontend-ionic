@@ -41,6 +41,8 @@ import {TranslateService} from '@ngx-translate/core';
 export class LanguagePage {
 
     languages: any;
+    searchValue: String;
+    filteredLanguages: any;
 
     constructor(
         public navCtrl: NavController,
@@ -66,6 +68,13 @@ export class LanguagePage {
     findAll() {
         this.http.getAllLanguages().subscribe(languages => {
             this.languages = languages;
+            this.filteredLanguages = languages;
+        })
+    }
+
+    searchLanguage() {
+        this.filteredLanguages = this.languages.filter(language => {
+            return language.language.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
         })
     }
 

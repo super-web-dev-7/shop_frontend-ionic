@@ -15,15 +15,16 @@
                 <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
             </ion-button>
         </ion-buttons>
+        <ion-searchbar animated [(ngModel)]="searchValue" (ionChange)="searchUser()"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-grid class="ion-no-padding" fixed>
-        <div class="ion-no-margin" [@staggerIn]="users">
+        <div class="ion-no-margin" [@staggerIn]="filteredUsers">
         
             <ion-item lines="none" class="bg-white" tappable
-                      *ngFor="let user of users">
+                      *ngFor="let user of filteredUsers">
                 <ion-label (click)="editUser(user)">
                     <h2>
                         <ion-text color="dark"><strong>{{ user.firstName }} {{user.lastName}}</strong></ion-text>

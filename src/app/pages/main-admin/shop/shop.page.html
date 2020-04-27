@@ -15,6 +15,7 @@
                 <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
             </ion-button>
         </ion-buttons>
+        <ion-searchbar animated [(ngModel)]="searchValue" (ionChange)="searchShop()"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
@@ -23,7 +24,7 @@
         <div class="ion-no-margin" [@staggerIn]="shops">
         
             <ion-item lines="none" class="bg-white" tappable
-                      *ngFor="let shop of shops">
+                      *ngFor="let shop of filteredShops">
                 <ion-label (click)="editLanguage(shop)">
                     <h2>
                         <ion-text color="dark"><strong>{{ shop.companyName }}</strong></ion-text>

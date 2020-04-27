@@ -40,6 +40,8 @@ export class ShopPage {
 
     languages: any;
     shops: any;
+    searchValue: String;
+    filteredShops: any;
 
     constructor(
         public menuCtrl: MenuController,
@@ -58,7 +60,18 @@ export class ShopPage {
     findAll() {
         this.http.getAllShops().subscribe(shops => {
             this.shops = shops;
+            this.filteredShops = shops;
         });
+    }
+
+    searchShop() {
+        console.log(this.shops)
+        this.filteredShops = this.shops.filter(shop => {
+            return shop.companyName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || shop.firstName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || shop.lastName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || shop.email.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
+        })
     }
 
     async addLanguage() {

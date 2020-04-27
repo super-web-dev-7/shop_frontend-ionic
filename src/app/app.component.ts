@@ -88,7 +88,7 @@ export class AppComponent {
             },
             {
                 title: 'Assign root to profile',
-                url: 'shopadmin/assign',
+                url: 'shopadmin/assign_auth',
                 direct: 'root',
                 icon: 'pricetag'
             },

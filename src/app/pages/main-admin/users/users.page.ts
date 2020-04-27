@@ -39,14 +39,15 @@ import {TranslateService} from '@ngx-translate/core';
 export class UsersPage {
 
     users: any;
+    filteredUsers: any;
+    searchValue: String;
 
     constructor(
         public menuCtrl: MenuController,
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-    ) {
-    }
+    ) {}
 
     ionViewWillEnter() {
         this.menuCtrl.enable(true);
@@ -56,6 +57,15 @@ export class UsersPage {
     findAll() {
         this.http.getAllUsers().subscribe(users => {
             this.users = users;
+            this.filteredUsers = users;
+        })
+    }
+
+    searchUser() {
+        this.filteredUsers = this.users.filter(user => {
+            return user.email.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || user.firstName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || user.lastName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
         })
     }
 

@@ -15,6 +15,7 @@
                 <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
             </ion-button>
         </ion-buttons>
+        <ion-searchbar animated [(ngModel)]="searchValue" (ionChange)="searchLanguage()"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
@@ -23,7 +24,7 @@
         <div class="ion-no-margin" [@staggerIn]="languages">
         
             <ion-item lines="none" class="bg-white" tappable
-                      *ngFor="let language of languages">
+                      *ngFor="let language of filteredLanguages">
                 <ion-label (click)="editLanguage(language)">
                     <h2>
                         <ion-text color="dark"><strong>{{ language.language }}</strong></ion-text>

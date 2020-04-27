@@ -18,6 +18,7 @@ import {
 import {AddCountryComponent} from './add-country/add-country.component';
 import {EditCountryComponent} from './edit-country/edit-country.component';
 import {TranslateService} from '@ngx-translate/core';
+import {count} from 'rxjs/operators';
 
 @Component({
     selector: 'app-country',
@@ -39,6 +40,8 @@ import {TranslateService} from '@ngx-translate/core';
 export class CountryPage {
 
     countries: any;
+    searchValue: String;
+    filteredCountries: any;
 
     constructor(
         public menuCtrl: MenuController,
@@ -58,7 +61,14 @@ export class CountryPage {
     findAll() {
         this.http.getCountry().subscribe(countries => {
             this.countries = countries;
+            this.filteredCountries = countries;
         });
+    }
+
+    searchCountry() {
+        this.filteredCountries = this.countries.filter(country => {
+            return country.name.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
+        })
     }
 
     async addCountry() {

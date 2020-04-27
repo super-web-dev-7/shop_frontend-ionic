@@ -9,6 +9,9 @@
             </ion-text>
         </ion-title>
     </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-searchbar animated [(ngModel)]="searchValue" (ionChange)="searchProfile()"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -17,7 +20,7 @@
         <div class="ion-no-margin" [@staggerIn]="profiles">
             
             <ion-item lines="none" class="bg-white" tappable
-                      *ngFor="let profile of profiles">
+                      *ngFor="let profile of filteredProfiles">
                 <ion-label (click)="assign(profile)">
                     <h2>
                         <ion-text color="dark"><strong>{{ profile.name }}</strong></ion-text>

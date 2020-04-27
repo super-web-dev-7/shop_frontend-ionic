@@ -39,6 +39,8 @@ import {TranslateService} from '@ngx-translate/core';
 export class UsersPage {
 
     users: any;
+    filteredUsers: any;
+    searchValue: String;
 
     constructor(
         public menuCtrl: MenuController,
@@ -59,7 +61,16 @@ export class UsersPage {
     findAll() {
         this.http.getUsersForShopAdmin(this.auth.currentUserValue.shop).subscribe(users => {
             this.users = users;
+            this.filteredUsers = users;
             console.log(users)
+        })
+    }
+
+    searchUser() {
+        this.filteredUsers = this.users.filter(user => {
+            return user.email.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || user.firstName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
+                || user.lastName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1;
         })
     }
 

@@ -19,6 +19,7 @@ const routes: Routes = [
     //Shop Admin
     {path: 'shopadmin/users', loadChildren: () => import('./pages/shop-admin/users/users.module').then(m => m.UsersPageModule), canActivate: [AuthGuard], data: {roles: [1]}},
     {path: 'shopadmin/profile', loadChildren: () => import('./pages/shop-admin/profile/profile.module').then(m => m.ProfilePageModule), canActivate: [AuthGuard], data: {roles: [1]}},
+    {path: 'shopadmin/assign_auth', loadChildren: () => import('./pages/shop-admin/assign-auth/assign-auth.module').then(m => m.AssignAuthPageModule), canActivate: [AuthGuard], data: {roles: [1]}},
     {path: '**', redirectTo: '/home-results'}
 ];
 
