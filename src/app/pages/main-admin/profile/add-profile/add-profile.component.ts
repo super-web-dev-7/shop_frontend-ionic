@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, ModalController} from '@ionic/angular';
+import {LoadingController, ModalController, ToastController} from '@ionic/angular';
 import {AuthService, HttpService} from '../../../../providers';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -19,7 +19,8 @@ export class AddProfileComponent implements OnInit {
         private httpRequest: HttpService,
         private formBuilder: FormBuilder,
         public loadingCtrl: LoadingController,
-        private auth: AuthService
+        private auth: AuthService,
+        public toastController: ToastController
     ) {
     }
 
@@ -67,11 +68,24 @@ export class AddProfileComponent implements OnInit {
             createdBy: this.auth.currentUserValue.email
         };
 
-        this.httpRequest.addProfile(data).subscribe(result => {
-            this.modalCtrl.dismiss(data);
+        this.httpRequest.addProfile(data).subscribe((result: any) => {
+            if (result.status === 'duplicated') {
+                loader.onWillDismiss().then(() => {
+                    this.presentToast('Profile already exists')
+                });
+            } else {
+                loader.onWillDismiss().then(() => {
+                    this.modalCtrl.dismiss(data);
+                });
+            }
         });
+    }
 
-        loader.onWillDismiss().then(() => {
+    async presentToast(message) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: 2000
         });
+        await toast.present();
     }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, ModalController} from '@ionic/angular';
+import {LoadingController, ModalController, ToastController} from '@ionic/angular';
 import {HttpService} from '../../../../providers';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -18,6 +18,7 @@ export class AddCountryComponent implements OnInit {
         private httpRequest: HttpService,
         private formBuilder: FormBuilder,
         public loadingCtrl: LoadingController,
+        public toastController: ToastController
     ) {
     }
 
@@ -56,11 +57,24 @@ export class AddCountryComponent implements OnInit {
             languages: this.f.languages.value,
         };
 
-        this.httpRequest.addCountry(data).subscribe(result => {
-            this.modalCtrl.dismiss(data)
+        this.httpRequest.addCountry(data).subscribe((res: any) => {
+            if (res.status === 'duplicated') {
+                loader.onWillDismiss().then(() => {
+                    this.presentToast('Country name already exists')
+                })
+            } else {
+                loader.onWillDismiss().then(() => {
+                    this.modalCtrl.dismiss(data)
+                })
+            }
         });
+    }
 
-        loader.onWillDismiss().then(() => {
+    async presentToast(message) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: 2000
         });
+        toast.present();
     }
 }
