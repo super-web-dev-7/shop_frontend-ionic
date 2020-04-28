@@ -15,6 +15,8 @@ export class AddUserComponent implements OnInit {
     public countries: any;
     public languages = [];
     public shops: any;
+    public profiles: any;
+    public filteredProfiles: any;
     private roles = [
         {
             name: 'User',
@@ -25,7 +27,7 @@ export class AddUserComponent implements OnInit {
             value: 1
         },
         {
-            name: "Main Admin",
+            name: 'Main Admin',
             value: 2
         },
     ];
@@ -64,14 +66,19 @@ export class AddUserComponent implements OnInit {
             'role': [null, Validators.compose([
                 Validators.required
             ])],
-            'shop': [{value: null, disabled: true}]
+            'shop': [{value: null, disabled: true}],
+            'profile': [{value: null, disabled: true}, Validators.compose([Validators.required])]
         });
         this.httpRequest.getCountry().subscribe(res => {
             this.countries = res;
         });
         this.httpRequest.getAllShops().subscribe(res => {
             this.shops = res;
-        })
+        });
+        this.httpRequest.getAllProfiles().subscribe(res => {
+            this.profiles = res;
+            console.log('profiles >>>>', this.profiles);
+        });
     }
 
     get f() {
@@ -79,18 +86,43 @@ export class AddUserComponent implements OnInit {
     }
 
     selectCountry(item) {
-        if (item.detail.value !== null) this.languages = item.detail.value.languages;
-        if (this.languages.length != 0) this.onRegisterForm.controls.language.enable();
-        else this.onRegisterForm.controls.language.disable();
+        if (item.detail.value !== null) {
+            this.languages = item.detail.value.languages;
+        }
+        if (this.languages.length != 0) {
+            this.onRegisterForm.controls.language.enable();
+        } else {
+            this.onRegisterForm.controls.language.disable();
+        }
     }
 
     selectRole(item) {
+        this.f.profile.setValue(null);
         if (item.detail.value == 1) {
             this.onRegisterForm.controls.shop.enable();
-        } else {
+        } else if (item.detail.value === 2) {
             this.onRegisterForm.controls.shop.disable();
+            this.filteredProfiles = this.profiles.filter(profile => {
+                return profile.isMainAdmin === true;
+            });
+            this.f.profile.enable();
+        } else {
+            this.f.shop.disable();
         }
+    }
 
+    selectShop(item) {
+        // console.log(item.detail.value._id)
+        console.log(item);
+        if (item.detail.value !== undefined) {
+            console.log(item.detail.value._id);
+            this.filteredProfiles = this.profiles.filter(profile => {
+                if (profile.shopID !== null) {
+                    return profile.shopID._id === item.detail.value._id;
+                }
+            });
+            this.f.profile.enable();
+        }
     }
 
     closeModal() {
@@ -104,29 +136,27 @@ export class AddUserComponent implements OnInit {
 
         loader.present();
 
-        loader.onWillDismiss().then(() => {
-            const data = {
-                firstName: this.f.firstName.value,
-                lastName: this.f.lastName.value,
-                email: this.f.email.value,
-                password: this.f.password.value,
-                country: this.f.country.value._id,
-                language: this.f.language.value._id,
-                role: this.f.role.value,
-                shop: this.f.role.value === 1? this.f.shop.value._id : null
-            };
-            console.log(data)
-            this.httpRequest.addUser(data).subscribe((res: any) => {
-                if (res.unique === false) {
-                    loader.onWillDismiss().then(() => {
-                        this.presentToast('User already exists')
-                    })
-                } else {
-                    loader.onWillDismiss().then(() => {
-                        this.modalCtrl.dismiss(res);
-                    });
-                }
-            });
+        const data = {
+            firstName: this.f.firstName.value,
+            lastName: this.f.lastName.value,
+            email: this.f.email.value,
+            password: this.f.password.value,
+            country: this.f.country.value._id,
+            language: this.f.language.value._id,
+            role: this.f.role.value,
+            shop: this.f.role.value === 1 && this.f.shop.value !== null ? this.f.shop.value._id : null,
+            profile: this.f.profile.value._id
+        };
+        this.httpRequest.addUser(data).subscribe((res: any) => {
+            if (res.unique === false) {
+                loader.onWillDismiss().then(() => {
+                    this.presentToast('User already exists');
+                });
+            } else {
+                loader.onWillDismiss().then(() => {
+                    this.modalCtrl.dismiss(res);
+                });
+            }
         });
     }
 

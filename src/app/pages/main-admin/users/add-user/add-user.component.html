@@ -117,13 +117,29 @@
                 <ion-icon name="fast-food" item-start></ion-icon>
                 {{ 'app.label.shop' | translate }}
             </ion-label>
-            <ion-select formControlName="shop" okText="OK" cancelText="Cancel">
+            <ion-select formControlName="shop" okText="OK" cancelText="Cancel" (ionChange)="selectShop($event)">
                 <ion-select-option [value]="shop"
                                    *ngFor="let shop of shops">{{shop.companyName}}</ion-select-option>
             </ion-select>
         </ion-item>
         <p color="warning" class="text08"
            *ngIf="onRegisterForm.get('shop').touched && onRegisterForm.get('shop').hasError('required')">
+            <ion-text color="warning">
+                {{ 'app.label.errors.field' | translate }}
+            </ion-text>
+        </p>
+    
+        <ion-item class="ion-no-padding animated fadeInUp">
+            <ion-label>
+                <ion-icon name="person" item-start></ion-icon>
+                {{ 'app.pages.profile.title.header' | translate }}
+            </ion-label>
+            <ion-select okText="OK" cancelText="Cancel" formControlName="profile">
+                <ion-select-option [value]="profile" *ngFor="let profile of filteredProfiles">{{profile.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <p color="warning" class="text08"
+           *ngIf="onRegisterForm.get('profile').touched && onRegisterForm.get('profile').hasError('required')">
             <ion-text color="warning">
                 {{ 'app.label.errors.field' | translate }}
             </ion-text>
