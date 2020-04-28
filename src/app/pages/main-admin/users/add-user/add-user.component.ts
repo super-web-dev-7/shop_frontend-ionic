@@ -98,16 +98,16 @@ export class AddUserComponent implements OnInit {
 
     selectRole(item) {
         this.f.profile.setValue(null);
-        if (item.detail.value == 1) {
-            this.onRegisterForm.controls.shop.enable();
+        if (item.detail.value === 1) {
+            this.f.shop.enable();
         } else if (item.detail.value === 2) {
-            this.onRegisterForm.controls.shop.disable();
+            this.f.shop.disable();
             this.filteredProfiles = this.profiles.filter(profile => {
                 return profile.isMainAdmin === true;
             });
             this.f.profile.enable();
         } else {
-            this.f.shop.disable();
+            this.f.shop.enable();
         }
     }
 
@@ -116,6 +116,7 @@ export class AddUserComponent implements OnInit {
         console.log(item);
         if (item.detail.value !== undefined) {
             console.log(item.detail.value._id);
+            this.f.profile.setValue(null)
             this.filteredProfiles = this.profiles.filter(profile => {
                 if (profile.shopID !== null) {
                     return profile.shopID._id === item.detail.value._id;
@@ -144,7 +145,7 @@ export class AddUserComponent implements OnInit {
             country: this.f.country.value._id,
             language: this.f.language.value._id,
             role: this.f.role.value,
-            shop: this.f.role.value === 1 && this.f.shop.value !== null ? this.f.shop.value._id : null,
+            shop: this.f.role.value !== 2 && this.f.shop.value !== null ? this.f.shop.value._id : null,
             profile: this.f.profile.value._id
         };
         this.httpRequest.addUser(data).subscribe((res: any) => {

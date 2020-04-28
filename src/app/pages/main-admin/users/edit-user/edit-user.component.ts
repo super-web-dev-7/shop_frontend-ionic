@@ -64,7 +64,7 @@ export class EditUserComponent implements OnInit {
             'language': [{value: this.user.language, disabled: false}, Validators.compose([
                 Validators.required
             ])],
-            'shop': [{value: this.user.role === 1 ? this.user.shop : null, disabled: false}, Validators.compose([
+            'shop': [{value: this.user.role !== 2 ? this.user.shop : null, disabled: false}, Validators.compose([
                 Validators.required
             ])],
             'status': [this.user.status, Validators.compose([
@@ -95,14 +95,12 @@ export class EditUserComponent implements OnInit {
                 this.filteredProfiles = this.profiles.filter(profile => {
                     return profile.isMainAdmin === true;
                 });
-            } else if (this.user.role === 1) {
+            } else {
                 this.filteredProfiles = this.profiles.filter(profile => {
                     if (profile.shopID !== null) {
                         return profile.shopID._id === this.user.shop._id;
                     }
                 });
-            } else {
-                this.filteredProfiles = this.profiles;
             }
         });
     }
@@ -118,27 +116,26 @@ export class EditUserComponent implements OnInit {
     }
 
     selectRole(item){
-        console.log(item)
-        if (item.detail.value.value == 1) {
+        if (item.detail.value.value === 1) {
             this.filteredProfiles = [];
-            this.f.shop.setValue(null)
-            this.onEditUserForm.controls.shop.enable();
+            this.f.shop.setValue(null);
+            this.f.shop.enable();
         } else if (item.detail.value.value === 2) {
-            this.onEditUserForm.controls.shop.disable();
+            this.f.shop.disable();
             this.filteredProfiles = this.profiles.filter(profile => {
                 return profile.isMainAdmin === true;
             });
             this.f.profile.enable();
         } else {
-            this.f.shop.disable();
+            this.filteredProfiles = [];
+            this.f.shop.setValue(null);
+            this.f.shop.enable();
         }
     }
 
     selectShop(item) {
-        // console.log(item.detail.value._id)
-        console.log(item);
+        this.f.profile.setValue(null);
         if (item.detail.value !== undefined) {
-            console.log(item.detail.value._id);
             this.filteredProfiles = this.profiles.filter(profile => {
                 if (profile.shopID !== null) {
                     return profile.shopID._id === item.detail.value._id;
@@ -167,12 +164,10 @@ export class EditUserComponent implements OnInit {
             country: this.f.country.value._id,
             language: this.f.language.value._id,
             role: this.f.role.value.value,
-            shop: this.f.role.value.value === 1 && this.f.shop.value !== null ? this.f.shop.value._id : null,
+            shop: this.f.role.value.value !== 2 && this.f.shop.value !== null ? this.f.shop.value._id : null,
             status: this.f.status.value,
             profile: this.f.profile.value._id
         };
-
-        console.log(data)
 
         this.httpRequest.editUser(data).subscribe(result => {
             loader.onWillDismiss().then(() => {

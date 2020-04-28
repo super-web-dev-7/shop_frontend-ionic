@@ -111,7 +111,7 @@
                 <ion-icon name="fast-food" item-start></ion-icon>
                 {{ 'app.label.shop' | translate }}
             </ion-label>
-            <ion-select formControlName="shop" okText="OK" [selectedText]="user.role === 1 && this.f.shop.value !== null ? this.f.shop.value.companyName : null" cancelText="Cancel" (ionChange)="selectShop($event)">
+            <ion-select formControlName="shop" okText="OK" [selectedText]="user.role !== 2 && this.f.shop.value !== null ? this.f.shop.value.companyName : null" cancelText="Cancel" (ionChange)="selectShop($event)">
                 <ion-select-option [value]="shop"
                                    *ngFor="let shop of shops">{{shop.companyName}}</ion-select-option>
             </ion-select>
@@ -145,7 +145,7 @@
                 <ion-icon name="person" item-start></ion-icon>
                 {{ 'app.pages.profile.title.header' | translate }}
             </ion-label>
-            <ion-select okText="OK" cancelText="Cancel" formControlName="profile" [selectedText]="this.f.profile.value.name">
+            <ion-select okText="OK" cancelText="Cancel" formControlName="profile" [selectedText]="this.f.profile.value !== null ? this.f.profile.value.name : null">
                 <ion-select-option [value]="profile" *ngFor="let profile of filteredProfiles">{{profile.name}}</ion-select-option>
             </ion-select>
         </ion-item>
