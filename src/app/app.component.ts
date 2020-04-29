@@ -34,7 +34,15 @@ export class AppComponent {
         private auth: AuthService,
         private httpRequest: HttpService
     ) {
+
         const user = this.auth.currentUserValue
+        if (user !== null) {
+            this.httpRequest.getUser(user.id).subscribe((res: any) => {
+                user.profile = res.profile;
+                this.auth.setProfile(user);
+            });
+        }
+
         this.mainAdminPages = [
             {
                 title: this.translateService.instant('app.pages.users.title.header'),

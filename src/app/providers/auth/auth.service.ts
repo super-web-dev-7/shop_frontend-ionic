@@ -7,7 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {UrlJSON} from '../../utils/UrlJson';
 import {environment} from '../../../environments/environment';
-import {TranslateProvider} from '..';
+import {HttpService, TranslateProvider} from '..';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +20,7 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
+        private httpRequest: HttpService,
         private translate: TranslateProvider,
         private translateService: TranslateService
     ) {
@@ -773,6 +774,10 @@ export class AuthService {
                 return lang;
             }
         }
+    }
+
+    public setProfile(data) {
+        this.currentUserSubject.next(data);
     }
 
     login(email: string, password: string) {
