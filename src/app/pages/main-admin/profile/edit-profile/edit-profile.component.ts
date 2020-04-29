@@ -37,7 +37,6 @@ export class EditProfileComponent implements OnInit {
         });
 
         this.isMainAdmin = this.profile.isMainAdmin;
-        console.log(this.isMainAdmin)
 
         this.setShopID();
 
@@ -55,7 +54,6 @@ export class EditProfileComponent implements OnInit {
     }
 
     setShopID() {
-        console.log(this.isMainAdmin)
         if (this.isMainAdmin) {
             this.f.shop.disable();
         } else {

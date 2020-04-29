@@ -5,7 +5,7 @@ import {
     ModalController
 } from '@ionic/angular';
 
-import {HttpService} from '../../../providers';
+import {AuthService, HttpService} from '../../../providers';
 
 import {
     trigger,
@@ -38,6 +38,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 export class UsersPage {
 
+    currentUser: any;
     users: any;
     filteredUsers: any;
     searchValue: String;
@@ -47,7 +48,10 @@ export class UsersPage {
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-    ) {}
+        private auth: AuthService
+    ) {
+        this.currentUser = this.auth.currentUserValue;
+    }
 
     ionViewWillEnter() {
         this.menuCtrl.enable(true);
@@ -83,6 +87,7 @@ export class UsersPage {
     }
 
     async editUser(user) {
+        if (!this.currentUser.profile.user.includes(3)) return;
         const modal = await this.modalCtrl.create({
             component: EditUserComponent,
             componentProps: {

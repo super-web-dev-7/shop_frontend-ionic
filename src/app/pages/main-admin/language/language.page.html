@@ -11,7 +11,7 @@
     </ion-toolbar>
     <ion-toolbar color="dark">
         <ion-buttons slot="end">
-            <ion-button size="default" shape="round" (click)="addLanguage()">
+            <ion-button size="default" shape="round" (click)="addLanguage()" *ngIf="currentUser.profile.language.includes(2)">
                 <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
             </ion-button>
         </ion-buttons>

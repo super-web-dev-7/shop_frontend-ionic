@@ -768,12 +768,10 @@ export class AuthService {
     };
 
     public getLanguageCode(language) {
-        // console.log(this.isoLangs)
         for (let lang in this.isoLangs) {
             if (this.isoLangs[lang].name.includes(language)) {
                 return lang;
             }
-            // console.log(this.isoLangs[lang].name)
         }
     }
 
@@ -795,7 +793,6 @@ export class AuthService {
                             this.translate.setTranslations(translations);
                         });
                     } else {
-                        console.log('hahaha')
                         this.translateService.setDefaultLang(localStorage.getItem('language'));
                         this.translateService.use(localStorage.getItem('language'));
                         this.translateService.getTranslation(localStorage.getItem('language')).subscribe(translations => {

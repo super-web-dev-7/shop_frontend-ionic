@@ -53,7 +53,6 @@ export class AssignToProfileComponent implements OnInit {
         this.selectedLanguageAccess = this.profile.language;
         this.selectedShopAccess = this.profile.shop;
         this.selectedProfileAccess = this.profile.profile;
-        console.log(this.profile)
     }
 
     closeModal() {
@@ -71,7 +70,6 @@ export class AssignToProfileComponent implements OnInit {
             updatedBy: this.auth.currentUserValue.email
         };
 
-        console.log(data)
         const loader = await this.loadingCtrl.create({
             duration: 2000
         });
@@ -79,14 +77,10 @@ export class AssignToProfileComponent implements OnInit {
         loader.present();
 
         this.httpRequest.assignToProfile(data).subscribe(res => {
-            console.log(res);
             loader.onWillDismiss().then(() => {
                 this.modalCtrl.dismiss(data);
             })
 
         })
-        // this.httpRequest.updateAssign(data).subscribe(res => {
-        //     console.log(res)
-        // });
     }
 }

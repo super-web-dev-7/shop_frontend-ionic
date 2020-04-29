@@ -5,7 +5,7 @@ import {
     ModalController
 } from '@ionic/angular';
 
-import {HttpService} from '../../../providers';
+import {AuthService, HttpService} from '../../../providers';
 
 import {
     trigger,
@@ -42,14 +42,17 @@ export class ShopPage {
     shops: any;
     searchValue: String;
     filteredShops: any;
+    currentUser: any;
 
     constructor(
         public menuCtrl: MenuController,
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private auth: AuthService
     ) {
+        this.currentUser = this.auth.currentUserValue;
     }
 
     ionViewWillEnter() {
@@ -65,7 +68,6 @@ export class ShopPage {
     }
 
     searchShop() {
-        console.log(this.shops)
         this.filteredShops = this.shops.filter(shop => {
             return shop.companyName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
                 || shop.firstName.toLowerCase().indexOf(this.searchValue.trim().toLowerCase()) > -1
@@ -74,7 +76,7 @@ export class ShopPage {
         })
     }
 
-    async addLanguage() {
+    async addShop() {
         const modal = await this.modalCtrl.create({
             component: AddShopComponent
         });
@@ -87,7 +89,8 @@ export class ShopPage {
         return await modal.present();
     }
 
-    async editLanguage(shop) {
+    async editShop(shop) {
+        if (!this.currentUser.profile.shop.includes(3)) return;
         const modal = await this.modalCtrl.create({
             component: EditShopComponent,
             componentProps: {

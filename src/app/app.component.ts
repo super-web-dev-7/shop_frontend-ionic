@@ -34,42 +34,43 @@ export class AppComponent {
         private auth: AuthService,
         private httpRequest: HttpService
     ) {
+        const user = this.auth.currentUserValue
         this.mainAdminPages = [
             {
                 title: this.translateService.instant('app.pages.users.title.header'),
                 url: 'dashboard',
                 direct: 'root',
-                icon: 'person'
+                icon: 'person',
             },
             {
                 title: this.translateService.instant('app.pages.profile.title.header'),
                 url: 'profiles',
                 direct: 'root',
-                icon: 'people'
+                icon: 'people',
             },
             {
                 title: this.translateService.instant('app.pages.assign.title.header'),
                 url: 'assign_auth',
                 direct: 'root',
-                icon: 'pricetag'
+                icon: 'pricetag',
             },
             {
                 title: this.translateService.instant('app.pages.shop.title.header'),
                 url: 'shops',
                 direct: 'root',
-                icon: 'gift'
+                icon: 'gift',
             },
             {
                 title: this.translateService.instant('app.pages.country.title.header'),
                 url: 'countries',
                 direct: 'root',
-                icon: 'globe'
+                icon: 'globe',
             },
             {
                 title: this.translateService.instant('app.pages.language.title.header'),
                 url: 'languages',
                 direct: 'root',
-                icon: 'language'
+                icon: 'language',
             }
         ];
 
@@ -189,15 +190,26 @@ export class AppComponent {
 
         this.auth.currentUserSubject.subscribe(value => {
             this.currentUser = value;
+            console.log('currnet user?????>>>>>????>>>>', this.currentUser)
             if (this.currentUser) {
                 switch (this.currentUser.role) {
                     case 0:
                         this.appPages = this.userPages;
                         break;
                     case 1:
+                        this.shopAdminPages[0].active = this.currentUser.profile.user.length > 0;
+                        this.shopAdminPages[1].active = this.currentUser.profile.profile.length > 0;
+                        this.shopAdminPages[2].active = this.currentUser.profile.user.length === 4 && this.currentUser.profile.profile.length === 4 && this.currentUser.profile.shop.length === 4 && this.currentUser.profile.language.length === 4 && this.currentUser.profile.country.length === 4;
+                        this.shopAdminPages[3].active = true;
                         this.appPages = this.shopAdminPages;
                         break;
                     case 2:
+                        this.mainAdminPages[0].active = this.currentUser.profile.user.length > 0;
+                        this.mainAdminPages[1].active = this.currentUser.profile.profile.length > 0;
+                        this.mainAdminPages[2].active = this.currentUser.profile.user.length === 4 && this.currentUser.profile.profile.length === 4 && this.currentUser.profile.shop.length === 4 && this.currentUser.profile.language.length === 4 && this.currentUser.profile.country.length === 4;
+                        this.mainAdminPages[3].active = this.currentUser.profile.shop.length > 0;
+                        this.mainAdminPages[4].active = this.currentUser.profile.country.length > 0;
+                        this.mainAdminPages[5].active = this.currentUser.profile.language.length > 0;
                         this.appPages = this.mainAdminPages;
                         break;
                 }

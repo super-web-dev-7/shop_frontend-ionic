@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoadingController, ModalController, NavParams} from '@ionic/angular';
 import {AuthService, HttpService} from '../../../../providers';
-import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-edit-user',
@@ -44,7 +43,6 @@ export class EditUserComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.navParams.data.user;
-        console.log(this.user)
         this.onEditUserForm = this.formBuilder.group({
             'firstName': [this.user.firstName, Validators.compose([
                 Validators.required

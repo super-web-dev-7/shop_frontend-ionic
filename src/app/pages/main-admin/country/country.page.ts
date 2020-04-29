@@ -5,7 +5,7 @@ import {
     ModalController
 } from '@ionic/angular';
 
-import {HttpService} from '../../../providers';
+import {AuthService, HttpService} from '../../../providers';
 
 import {
     trigger,
@@ -42,15 +42,17 @@ export class CountryPage {
     countries: any;
     searchValue: String;
     filteredCountries: any;
+    currentUser: any;
 
     constructor(
         public menuCtrl: MenuController,
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         private http: HttpService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private auth: AuthService
     ) {
-
+        this.currentUser = this.auth.currentUserValue;
     }
 
     ionViewWillEnter() {
@@ -85,6 +87,7 @@ export class CountryPage {
     }
 
     async editCountry(country) {
+        if (!this.currentUser.profile.country.includes(3)) return;
         const modal = await this.modalCtrl.create({
             component: EditCountryComponent,
             componentProps: {

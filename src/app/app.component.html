@@ -40,7 +40,7 @@
             <ion-content class="bg-profile">
                 <ion-list>
                     <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-                        <ion-item [routerLink]="[p.url]" color="primary">
+                        <ion-item [routerLink]="[p.url]" color="primary" *ngIf="p.active">
                             <ion-icon slot="start" [name]="p.icon" color="light"></ion-icon>
                             <ion-label>
                                 {{p.title | translate}}

@@ -7,7 +7,7 @@ import {
     ModalController
 } from '@ionic/angular';
 
-import {HttpService} from '../../../providers';
+import {AuthService, HttpService} from '../../../providers';
 
 import {
     trigger,
@@ -43,6 +43,7 @@ export class LanguagePage {
     languages: any;
     searchValue: String;
     filteredLanguages: any;
+    currentUser: any;
 
     constructor(
         public navCtrl: NavController,
@@ -51,9 +52,10 @@ export class LanguagePage {
         public loadingCtrl: LoadingController,
         private http: HttpService,
         public alertController: AlertController,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private auth: AuthService
     ) {
-
+        this.currentUser = this.auth.currentUserValue;
     }
 
     ionViewWillEnter() {
@@ -93,6 +95,7 @@ export class LanguagePage {
     }
 
     async editLanguage(language) {
+        if (!this.currentUser.profile.language.includes(3)) return;
         const modal = await this.modalCtrl.create({
             component: EditLanguageComponent,
             componentProps: {

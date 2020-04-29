@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, ModalController, ToastController} from '@ionic/angular';
 import {AuthService, HttpService} from '../../../../providers';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-add-user',
@@ -31,7 +30,6 @@ export class AddUserComponent implements OnInit {
             value: 2
         },
     ];
-
 
     constructor(
         private modalCtrl: ModalController,
@@ -77,7 +75,6 @@ export class AddUserComponent implements OnInit {
         });
         this.httpRequest.getAllProfiles().subscribe(res => {
             this.profiles = res;
-            console.log('profiles >>>>', this.profiles);
         });
     }
 
@@ -112,10 +109,7 @@ export class AddUserComponent implements OnInit {
     }
 
     selectShop(item) {
-        // console.log(item.detail.value._id)
-        console.log(item);
         if (item.detail.value !== undefined) {
-            console.log(item.detail.value._id);
             this.f.profile.setValue(null)
             this.filteredProfiles = this.profiles.filter(profile => {
                 if (profile.shopID !== null) {

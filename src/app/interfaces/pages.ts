@@ -3,4 +3,5 @@ export interface Pages {
     url: any;
     direct?: string;
     icon?: string;
+    active?: boolean
 }

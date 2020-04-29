@@ -11,7 +11,7 @@
     </ion-toolbar>
     <ion-toolbar color="dark">
         <ion-buttons slot="end">
-            <ion-button size="default" shape="round" (click)="addProfile()">
+            <ion-button size="default" shape="round" (click)="addProfile()" *ngIf="this.currentUser.profile.profile.includes(2)">
                 <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
             </ion-button>
         </ion-buttons>

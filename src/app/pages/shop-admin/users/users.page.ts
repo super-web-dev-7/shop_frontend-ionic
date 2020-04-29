@@ -41,6 +41,7 @@ export class UsersPage {
     users: any;
     filteredUsers: any;
     searchValue: String;
+    currentUser: any;
 
     constructor(
         public menuCtrl: MenuController,
@@ -50,11 +51,11 @@ export class UsersPage {
         private translate: TranslateService,
         private auth: AuthService
     ) {
+        this.currentUser = this.auth.currentUserValue;
     }
 
     ionViewWillEnter() {
         this.menuCtrl.enable(true);
-        console.log(this.auth.currentUserValue)
         this.findAll();
     }
 
@@ -62,7 +63,6 @@ export class UsersPage {
         this.http.getUsersForShopAdmin(this.auth.currentUserValue.shop).subscribe(users => {
             this.users = users;
             this.filteredUsers = users;
-            console.log(users)
         })
     }
 
@@ -88,6 +88,7 @@ export class UsersPage {
     }
 
     async editUser(user) {
+        if (!this.currentUser.profile.user.includes(3)) return;
         const modal = await this.modalCtrl.create({
             component: EditUserComponent,
             componentProps: {

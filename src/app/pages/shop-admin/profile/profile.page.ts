@@ -43,6 +43,7 @@ export class ProfilePage {
     profiles: any;
     searchValue: String;
     filteredProfiles: any;
+    currentUser: any;
 
     constructor(
         public menuCtrl: MenuController,
@@ -52,6 +53,7 @@ export class ProfilePage {
         private translate: TranslateService,
         private auth: AuthService
     ) {
+        this.currentUser = this.auth.currentUserValue;
     }
 
     ionViewWillEnter() {
@@ -86,6 +88,7 @@ export class ProfilePage {
     }
 
     async editProfile(profile) {
+        if (!this.currentUser.profile.profile.includes(3)) return;
         const modal = await this.modalCtrl.create({
             component: EditProfileComponent,
             componentProps: {

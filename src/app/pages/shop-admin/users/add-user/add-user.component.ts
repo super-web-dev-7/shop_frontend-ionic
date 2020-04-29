@@ -53,7 +53,6 @@ export class AddUserComponent implements OnInit {
         });
         this.httpRequest.getProfilesForShopAdmin(this.auth.currentUserValue.shop).subscribe(profiles => {
             this.profiles = profiles;
-            console.log(profiles)
         })
     }
 

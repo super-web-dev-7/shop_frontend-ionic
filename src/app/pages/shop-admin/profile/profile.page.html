@@ -10,7 +10,7 @@
         </ion-title>
     </ion-toolbar>
     <ion-toolbar color="dark">
-        <ion-buttons slot="end">
+        <ion-buttons slot="end" *ngIf="currentUser.profile.profile.includes(2)">
             <ion-button size="default" shape="round" (click)="addProfile()">
                 <ion-icon name="person-add"></ion-icon> {{'app.common.add' | translate}}
             </ion-button>

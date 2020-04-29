@@ -13,9 +13,6 @@ export class AuthGuard implements CanActivate {
     }
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // if (state.url === '/dashboard') {
-        //     await this.menuCtrl.enable(true);
-        // }
         const currentUser = this.authenticationService.currentUserValue;
         console.log('current User >>>>', currentUser);
         if (currentUser) {

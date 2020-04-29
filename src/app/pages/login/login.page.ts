@@ -28,7 +28,6 @@ export class LoginPage implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.auth.currentUserValue)
         if (this.auth.currentUserValue) {
             if (this.auth.currentUserValue.role === 0) {
                 this.navCtrl.navigateRoot('/user');

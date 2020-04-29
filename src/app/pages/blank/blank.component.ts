@@ -15,7 +15,6 @@ export class BlankComponent implements OnInit {
 
     ngOnInit() {
         this.currentUser = this.auth.currentUserValue.email;
-        console.log(this.currentUser)
     }
 
 }
