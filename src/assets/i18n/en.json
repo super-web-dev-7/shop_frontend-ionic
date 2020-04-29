@@ -56,6 +56,7 @@
     "app.label.selectlocal": "Select Local",
 
     "app.label.errors.field": "This field is required",
+    "app.label.errors.emailValidate": "The email is not a valid email address.",
 
     "app.pages.extras.title.header": "Extras pages",
     "app.pages.extras.profileone.title.header": "Profile One",

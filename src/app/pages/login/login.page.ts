@@ -20,7 +20,8 @@ export class LoginPage implements OnInit {
         public loadingCtrl: LoadingController,
         private translate: TranslateProvider,
         private formBuilder: FormBuilder,
-        private auth: AuthService
+        private auth: AuthService,
+        public toastController: ToastController
     ) { }
 
     ionViewWillEnter() {
@@ -39,7 +40,7 @@ export class LoginPage implements OnInit {
         }
         this.onLoginForm = this.formBuilder.group({
             'email': [null, Validators.compose([
-                Validators.required
+                Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
             ])],
             'password': [null, Validators.compose([
                 Validators.required
@@ -129,9 +130,20 @@ export class LoginPage implements OnInit {
                 }
 
             }, error => {
-                console.log(error.error);
+                this.presentToast(error.error.message);
+                this.form.password.setValue(null);
+                console.log(error);
+
             }
         );
+    }
+
+    async presentToast(message) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: 2000
+        });
+        toast.present();
     }
 
 }

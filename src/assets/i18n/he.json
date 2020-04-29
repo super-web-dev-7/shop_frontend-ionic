@@ -56,6 +56,7 @@
     "app.label.selectlocal": "Select Local",
 
     "app.label.errors.field": "שדה חובה",
+    "app.label.errors.emailValidate": "הדוא\"ל אינו כתובת דוא\"ל חוקית",
 
     "app.pages.extras.title.header": "Extras pages",
     "app.pages.extras.profileone.title.header": "Profile One",

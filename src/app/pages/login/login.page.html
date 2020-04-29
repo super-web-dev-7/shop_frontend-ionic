@@ -31,6 +31,11 @@
                     {{ 'app.label.errors.field' | translate }}
                 </ion-text>
             </p>
+            <p class="text08" *ngIf="onLoginForm.get('email').touched && onLoginForm.get('email').hasError('pattern')">
+                <ion-text color="warning">
+                    {{ 'app.label.errors.emailValidate' | translate }}
+                </ion-text>
+            </p>
             
             <ion-item class="ion-no-padding animated fadeInUp">
                 <ion-label position="floating">
